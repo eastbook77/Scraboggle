@@ -1,0 +1,121 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Boggle-ish (Scrabble Scores)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="title">Boggle-ish</div>
+        <div class="subtitle">Scrabble-like tile scores • 60s pass-the-phone</div>
+      </div>
+
+      <div class="status">
+        <div class="pill" id="dictStatus">
+          <span class="dot" id="dictDot" aria-hidden="true"></span>
+          <span id="dictText">Loading dictionary…</span>
+        </div>
+
+        <div class="pill timer" aria-live="polite">
+          <span class="label">Time</span>
+          <span class="value" id="timeLeft">60</span>
+        </div>
+
+        <div class="pill score">
+          <span class="label">Score</span>
+          <span class="value" id="totalScore">0</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="left">
+        <div class="boardCard">
+          <div class="boardHeader">
+            <button class="btn primary" id="startBtn" disabled>Start</button>
+            <button class="btn" id="nextBtn" hidden>Next Player</button>
+            <button class="btn" id="challengeBtn" hidden>Challenge</button>
+          </div>
+
+          <div class="boardWrap" id="boardWrap">
+            <div class="board" id="board" role="grid" aria-label="Letter grid"></div>
+          </div>
+
+          <div class="inputRow">
+            <div class="inputWrap">
+              <label class="srOnly" for="wordInput">Enter word</label>
+              <input id="wordInput" type="text" inputmode="latin" autocomplete="off" autocapitalize="characters"
+                     spellcheck="false" placeholder="Type a word…" disabled />
+            </div>
+            <button class="btn submit" id="submitBtn" disabled>Submit</button>
+          </div>
+
+          <div class="message" id="message" aria-live="polite"></div>
+        </div>
+
+        <div class="listCard">
+          <div class="listHeader">
+            <div class="h">Accepted words</div>
+            <div class="small" id="foundCount">0 words</div>
+          </div>
+          <ul class="wordList" id="wordList" aria-label="Accepted words list"></ul>
+        </div>
+      </section>
+
+      <section class="right">
+        <div class="challengeCard" id="challengeCard" hidden>
+          <div class="challengeHeader">
+            <div class="h">Challenge mode</div>
+            <div class="small" id="challengeSummary"></div>
+          </div>
+
+          <div class="challengeStats">
+            <div class="stat">
+              <div class="k">Found</div>
+              <div class="v" id="statFound">0</div>
+            </div>
+            <div class="stat">
+              <div class="k">Total possible</div>
+              <div class="v" id="statTotal">0</div>
+            </div>
+            <div class="stat">
+              <div class="k">Max possible score sum</div>
+              <div class="v" id="statMaxSum">0</div>
+            </div>
+          </div>
+
+          <div class="missedHeader">
+            <div class="h2">Missed words</div>
+            <div class="small" id="missedCount"></div>
+          </div>
+          <ul class="missedList" id="missedList" aria-label="Missed words list"></ul>
+        </div>
+
+        <div class="helpCard">
+          <div class="h">Rules</div>
+          <ul class="rules">
+            <li>Min length 3</li>
+            <li>Touching adjacency (8 directions), no tile reuse</li>
+            <li><span class="mono">Qu</span> is one tile and matches <span class="mono">QU</span></li>
+            <li>Word score = sum of tile scores used (no length bonus)</li>
+            <li>Duplicates count once (case-insensitive)</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="small">
+        Dictionary: tries to load <span class="mono">words.txt</span> via fetch; falls back to demo list if unavailable.
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
